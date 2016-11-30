@@ -1,0 +1,13 @@
+#search-form {
+    width: 350px;
+    border: 1px solid black;
+    background:gray;
+}
+
+#search-form>input[type=text]{
+    width: 270px;
+}
+
+#search-form>button{
+    color: red;
+}
