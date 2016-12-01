@@ -31,13 +31,19 @@ var log = function(data){
 };
 
 var getDarkSkyResponse = function(data, callback){
-    var lat;
-    var lng;
-
-    if(data.status === "OK"){
-        lat = data.results[0].geometry.location.lat;
-        lng = data.results[0].geometry.location.lng;
+   if(data.status === "OK"){
+        var lat = data.results[0].geometry.location.lat;
+        var lng = data.results[0].geometry.location.lng;
+        //get DARKSKYRESPONSE
     }
+    else{
+        displayResults(data.status);
+    };
 };
+
+var displayResults = function(data, element){
+    var toDisplay = "The data is : " + data;
+    element.html(toDsiplay);
+}
 
 getGoogleMapResponse("New York City, NY", log);
