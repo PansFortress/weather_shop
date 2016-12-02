@@ -46,4 +46,4 @@ var displayResults = function(data){
     console.log(data);
 }
 
-getGoogleMapData("Haikou", getDarkSkyData);
+getGoogleMapData("11372", getDarkSkyData);
