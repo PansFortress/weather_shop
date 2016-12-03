@@ -50,6 +50,8 @@ var getDarkSkyData = function(data){
 };
 
 var displayResults = function(data){
+    console.log("Here");
+
     var current = {
         temperature: data.currently.apparentTemperature,
         summary: data.currently.summary,
@@ -61,14 +63,23 @@ var displayResults = function(data){
         summary: data.daily.summary
     };
 
-    var displayText = '<p>It looks like it will be ' + `${current.summary}`.toLowerCase() + 
-                      ' today. The rest of week seems to be PLACEHOLDER_FUNCTION, there\'s ' + `${weekly.summary}`
+    var displayText = '<p>It looks like it will be ' + current.summary.toLowerCase() + 
+                      ' today. The rest of the week seems to be ' + getMood(weekly.summary) + ', there\'s ' + 
+                      weekly.summary.charAt(0).toLowerCase() + weekly.summary.slice(1);
+
+    console.log(displayText);
 
 };
 
 //lookup JavaScript in function
 var getMood = function(text){
+    var _text = text.toLowerCase().split(" ");
 
-}
+    if(_text.indexOf('rain') > -1)
+        return "rainy";
+    if(_text.indexOf('sunny') > -1)
+        return "sunny";
+    return "okay";
+};
 
 getGoogleMapData("11372", getDarkSkyData);
