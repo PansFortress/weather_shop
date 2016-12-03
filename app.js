@@ -8,6 +8,13 @@ var DARK_SKY ={
     key: '52048a5f9e5bf2d1771414fe6a221c8e'
 }
 
+//Do I need this? Do I want to keep this data for any reason?
+var state = {
+    location: {},
+    current_weat: {},
+    weekly_weat: {}
+}
+
 var getGoogleMapData = function(search, callback){
     var settings ={
         url: GOOGLE_MAP.url,
@@ -43,7 +50,25 @@ var getDarkSkyData = function(data){
 };
 
 var displayResults = function(data){
-    console.log(data);
+    var current = {
+        temperature: data.currently.apparentTemperature,
+        summary: data.currently.summary,
+        icon: data.currently.icon
+    };
+
+    var weekly = {
+        icon: data.daily.icon,
+        summary: data.daily.summary
+    };
+
+    var displayText = '<p>It looks like it will be ' + `${current.summary}`.toLowerCase() + 
+                      ' today. The rest of week seems to be PLACEHOLDER_FUNCTION, there\'s ' + `${weekly.summary}`
+
+};
+
+//lookup JavaScript in function
+var getMood = function(text){
+
 }
 
 getGoogleMapData("11372", getDarkSkyData);
