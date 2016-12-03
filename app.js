@@ -9,12 +9,13 @@ var DARK_SKY ={
 }
 
 //Do I need this? Do I want to keep this data for any reason?
+/*
 var state = {
     location: {},
     current_weat: {},
     weekly_weat: {}
 }
-
+*/
 var getGoogleMapData = function(search, callback){
     var settings ={
         url: GOOGLE_MAP.url,
@@ -45,11 +46,11 @@ var getDarkSkyData = function(data){
         $.ajax(settings);
     }
     else{
-        displayResults(data.status);
+        displayWeatherResults(data.status);
     };
 };
 
-var displayResults = function(data){
+var displayWeatherResults = function(data){
     var current = {
         temperature: data.currently.apparentTemperature,
         summary: data.currently.summary,
@@ -62,10 +63,16 @@ var displayResults = function(data){
     };
 
     var displayText = '<p>It looks like it will be ' + current.summary.toLowerCase() + 
-                      ' today. The rest of the week seems to be ' + getMood(weekly.summary) + ', there\'s ' + 
-                      weekly.summary.charAt(0).toLowerCase() + weekly.summary.slice(1);
+                      ' today. The rest of the week seems to be ' + 
+                      getMood(weekly.summary) + ', there\'s ' + 
+                      weekly.summary.charAt(0).toLowerCase() + 
+                      weekly.summary.slice(1) + '</p>';
 
     $('.search-result').html(displayText);
+
+};
+
+var displayShoppingResults = function(weather_summary){
 
 };
 
