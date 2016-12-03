@@ -50,8 +50,6 @@ var getDarkSkyData = function(data){
 };
 
 var displayResults = function(data){
-    console.log("Here");
-
     var current = {
         temperature: data.currently.apparentTemperature,
         summary: data.currently.summary,
@@ -67,7 +65,7 @@ var displayResults = function(data){
                       ' today. The rest of the week seems to be ' + getMood(weekly.summary) + ', there\'s ' + 
                       weekly.summary.charAt(0).toLowerCase() + weekly.summary.slice(1);
 
-    console.log(displayText);
+    $('.search-result').html(displayText);
 
 };
 
