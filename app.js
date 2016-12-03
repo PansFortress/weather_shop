@@ -40,17 +40,23 @@ var getDarkSkyData = function(data){
             url: DARK_SKY.url + DARK_SKY.key + `/${lat},${lng}`,
             dataType: 'jsonp',
             type: 'GET',
+            //Should probably build a new function which will display both results, 
+            //weather w/ mood and shopping results
             success: displayResults
         };
 
         $.ajax(settings);
     }
     else{
-        displayWeatherResults(data.status);
+        displayError(data.status);
     };
 };
 
-var displayWeatherResults = function(data){
+var displayError = function(error){
+    $('.search-result').html(error);
+}; 
+
+var displayResults = function(data){
     var current = {
         temperature: data.currently.apparentTemperature,
         summary: data.currently.summary,
@@ -62,6 +68,10 @@ var displayWeatherResults = function(data){
         summary: data.daily.summary
     };
 
+    displayWeatherResults(current, weekly);
+}
+
+var displayWeatherResults = function(current, weekly){
     var displayText = '<p>It looks like it will be ' + current.summary.toLowerCase() + 
                       ' today. The rest of the week seems to be ' + 
                       getMood(weekly.summary) + ', there\'s ' + 
@@ -87,4 +97,4 @@ var getMood = function(text){
     return "okay";
 };
 
-getGoogleMapData("11372", getDarkSkyData);
+getGoogleMapData("Stinson", getDarkSkyData);
