@@ -40,8 +40,6 @@ var getDarkSkyData = function(data){
             url: DARK_SKY.url + DARK_SKY.key + `/${lat},${lng}`,
             dataType: 'jsonp',
             type: 'GET',
-            //Should probably build a new function which will display both results, 
-            //weather w/ mood and shopping results
             success: displayResults
         };
 
@@ -53,7 +51,7 @@ var getDarkSkyData = function(data){
 };
 
 var displayError = function(error){
-    $('.search-result').html(error);
+    $('.search-weather-result').html(error);
 }; 
 
 var displayResults = function(data){
@@ -69,7 +67,8 @@ var displayResults = function(data){
     };
 
     displayWeatherResults(current, weekly);
-}
+    displayShoppingResults(getMood(current.summary), getMood(weekly.summary));
+};
 
 var displayWeatherResults = function(current, weekly){
     var displayText = '<p>It looks like it will be ' + current.summary.toLowerCase() + 
@@ -78,15 +77,16 @@ var displayWeatherResults = function(current, weekly){
                       weekly.summary.charAt(0).toLowerCase() + 
                       weekly.summary.slice(1) + '</p>';
 
-    $('.search-result').html(displayText);
+    $('.search-weather-result').html(displayText);
 
 };
 
-var displayShoppingResults = function(weather_summary){
-
+var displayShoppingResults = function(current_mood, weekly_mood){
+    //TODO: replace placeholder text with search results based on what the mood is
+    var displayText = 'Current Mood: ' + current_mood + '\r\n Weekly Mood : ' + weekly_mood;
+    $('.search-sale-result').html(displayText);
 };
 
-//lookup JavaScript in function
 var getMood = function(text){
     var _text = text.toLowerCase().split(" ");
 
@@ -97,4 +97,9 @@ var getMood = function(text){
     return "okay";
 };
 
+$('#search-form').submit(function(e){
+    e.preventDefault();
+    var input = $(this).find('search-input').val();
+    console.log(input);
+})
 getGoogleMapData("Stinson", getDarkSkyData);
