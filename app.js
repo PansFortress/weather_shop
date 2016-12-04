@@ -99,7 +99,6 @@ var getMood = function(text){
 
 $('#search-form').submit(function(e){
     e.preventDefault();
-    var input = $(this).find('search-input').val();
-    console.log(input);
+    var input = $(this).find('input[name="search-input"]').val();
+    getGoogleMapData(input, getDarkSkyData);
 })
-getGoogleMapData("Stinson", getDarkSkyData);
