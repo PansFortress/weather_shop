@@ -9,13 +9,13 @@ var DARK_SKY ={
 }
 
 //Do I need this? Do I want to keep this data for any reason?
-/*
+
 var state = {
     location: {},
     current_weat: {},
     weekly_weat: {}
 }
-*/
+
 var getGoogleMapData = function(search, callback){
     var settings ={
         url: GOOGLE_MAP.url,
@@ -32,9 +32,11 @@ var getGoogleMapData = function(search, callback){
 };
 
 var getDarkSkyData = function(data){
+   state.location = data.results[0];
+
    if(data.status === "OK"){
-        var lat = data.results[0].geometry.location.lat;
-        var lng = data.results[0].geometry.location.lng;
+        var lat = state.location.geometry.location.lat;
+        var lng = state.location.geometry.location.lng;
 
         var settings ={
             url: DARK_SKY.url + DARK_SKY.key + `/${lat},${lng}`,
@@ -51,33 +53,26 @@ var getDarkSkyData = function(data){
 };
 
 var displayError = function(error){
-    $('.search-weather-result').html(error);
+    $('.search-weather-result').html('<p class = "error">' + error + '</p>');
 }; 
 
 var displayResults = function(data){
-    var current = {
-        temperature: data.currently.apparentTemperature,
-        summary: data.currently.summary,
-        icon: data.currently.icon
-    };
+    state.current_weat = data.currently;
+    state.weekly_weat = data.daily;
 
-    var weekly = {
-        icon: data.daily.icon,
-        summary: data.daily.summary
-    };
-
-    displayWeatherResults(current, weekly);
+    displayWeatherResults();
     displayShoppingResults(getMood(current.summary), getMood(weekly.summary));
 };
 
-var displayWeatherResults = function(current, weekly){
-    var displayText = '<p>It looks like it will be ' + current.summary.toLowerCase() + 
+var displayWeatherResults = function(){
+    var displayLocationText = '<h3 class="location">' + state.location.formatted_address + '</h3>';
+    var displayText = '<p>It looks like it will be ' + state.current_weat.summary.toLowerCase() + 
                       ' today. The rest of the week seems to be ' + 
-                      getMood(weekly.summary) + ', there\'s ' + 
-                      weekly.summary.charAt(0).toLowerCase() + 
-                      weekly.summary.slice(1) + '</p>';
+                      getMood(state.weekly_weat.summary) + ', there\'s ' + 
+                      state.weekly_weat.summary.charAt(0).toLowerCase() + 
+                      state.weekly_weat.summary.slice(1) + '</p>';
 
-    $('.search-weather-result').html(displayText);
+    $('.search-weather-result').html(displayLocationText + displayText);
 
 };
 
@@ -94,9 +89,12 @@ var getMood = function(text){
         return "rainy";
     if(_text.indexOf('sunny') > -1)
         return "sunny";
+    if(_text.indexOf('snow') > -1)
+        return "snowy";
     return "okay";
 };
 
+//Listeners
 $('#search-form').submit(function(e){
     e.preventDefault();
     var input = $(this).find('input[name="search-input"]').val();
