@@ -16,6 +16,13 @@ var state = {
     weekly_weat: {}
 }
 
+var shopping_search = {
+    snowy: ["winter boots", "hats", "scarves"],
+    rainy: ["rain boots", "umbrellas", "ponchos"],
+    sunny: ["summer dress", "sunglasses", "sunscreen"],
+    okay: ["jeans", "shirts", "knicknacks"]
+}
+
 var getGoogleMapData = function(search, callback){
     var settings ={
         url: GOOGLE_MAP.url,
@@ -61,7 +68,7 @@ var displayResults = function(data){
     state.weekly_weat = data.daily;
 
     displayWeatherResults();
-    displayShoppingResults(getMood(current.summary), getMood(weekly.summary));
+    displayShoppingResults(getMood(state.current_weat.summary), getMood(state.weekly_weat.summary));
 };
 
 var displayWeatherResults = function(){
@@ -78,7 +85,7 @@ var displayWeatherResults = function(){
 
 var displayShoppingResults = function(current_mood, weekly_mood){
     //TODO: replace placeholder text with search results based on what the mood is
-    var displayText = 'Current Mood: ' + current_mood + '\r\n Weekly Mood : ' + weekly_mood;
+    var displayText = 'Current Mood: ' + current_mood + '<br>Weekly Mood : ' + weekly_mood;
     $('.search-sale-result').html(displayText);
 };
 
