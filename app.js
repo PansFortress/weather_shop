@@ -8,6 +8,11 @@ var DARK_SKY ={
     key: '52048a5f9e5bf2d1771414fe6a221c8e'
 }
 
+var ETSY = {
+    url: 'https://openapi.etsy.com/v2/listings/active',
+    key: '3hxpbrdilxv6td1xny90v49u'
+}
+
 //Do I need this? Do I want to keep this data for any reason?
 
 var state = {
@@ -23,7 +28,7 @@ var shopping_search = {
     okay: ["jeans", "shirts", "sneakers"]
 }
 
-var getGoogleMapData = function(search, callback){
+var getGoogleMapData = function(search){
     var settings ={
         url: GOOGLE_MAP.url,
         data: {
@@ -32,7 +37,7 @@ var getGoogleMapData = function(search, callback){
         },
         dataType: 'json',
         type: 'GET',
-        success: callback
+        success: getDarkSkyData
     };
 
     $.ajax(settings);
@@ -105,5 +110,5 @@ var getMood = function(text){
 $('#search-form').submit(function(e){
     e.preventDefault();
     var input = $(this).find('input[name="search-input"]').val();
-    getGoogleMapData(input, getDarkSkyData);
+    getGoogleMapData(input);
 })
