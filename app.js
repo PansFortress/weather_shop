@@ -9,7 +9,7 @@ var DARK_SKY ={
 }
 
 var ETSY = {
-    url: 'https://openapi.etsy.com/v2/listings/active',
+    url: 'https://openapi.etsy.com/v2/listings/active.js',
     key: '3hxpbrdilxv6td1xny90v49u'
 }
 
@@ -38,6 +38,23 @@ var getGoogleMapData = function(search){
         dataType: 'json',
         type: 'GET',
         success: getDarkSkyData
+    };
+
+    $.ajax(settings);
+};
+
+var getEtsyData = function(search){
+    var settings = {
+        url: ETSY.url,
+        data: {
+            api_key: ETSY.key,
+            keywords: search,
+            includes: "MainImage",
+            limit: 25
+        },
+        dataType: 'jsonp',
+        type: 'GET',
+        success: displayShoppingResults
     };
 
     $.ajax(settings);
@@ -84,14 +101,22 @@ var displayWeatherResults = function(){
                       state.weekly_weat.summary.charAt(0).toLowerCase() + 
                       state.weekly_weat.summary.slice(1) + '</p>';
 
-    $('.search-weather-result').html(displayLocationText + displayText);
+    $('.search-sale-result').html(displayLocationText + displayText);
 
 };
 
-var displayShoppingResults = function(current_mood, weekly_mood){
+var displayShoppingResults = function(data){
     //TODO: replace placeholder text with search results based on what the mood is
-    var displayText = 'Current Mood: ' + current_mood + '<br>Weekly Mood : ' + weekly_mood;
-    $('.search-sale-result').html(displayText);
+    var displayHTML = "";
+    if(data.ok){
+        for(item in data.results){   
+            console.log(data.results[item])
+            console.log(data.results[item].MainImage.url_570xN);
+            displayHTML += ('<img src="' + data.results[item].MainImage.url_170x135 + '">');
+        }
+        $('.search-weather-result').html(displayHTML);
+    }
+    else(console.log("ERROR", data));
 };
 
 var getMood = function(text){
@@ -112,3 +137,5 @@ $('#search-form').submit(function(e){
     var input = $(this).find('input[name="search-input"]').val();
     getGoogleMapData(input);
 })
+
+getEtsyData("rain boots");
