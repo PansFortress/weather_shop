@@ -17,10 +17,10 @@ var state = {
 }
 
 var shopping_search = {
-    snowy: ["winter boots", "hats", "scarves"],
+    snowy: ["winter boots", "hats", "scarves", "gloves"],
     rainy: ["rain boots", "umbrellas", "ponchos"],
     sunny: ["summer dress", "sunglasses", "sunscreen"],
-    okay: ["jeans", "shirts", "knicknacks"]
+    okay: ["jeans", "shirts", "sneakers"]
 }
 
 var getGoogleMapData = function(search, callback){
