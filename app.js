@@ -111,7 +111,7 @@ var displayWeatherResults = function(){
                       ' today. The rest of the week seems to be ' + 
                       getMood(state.weekly_weat.summary) + ', there\'s ' + 
                       state.weekly_weat.summary.charAt(0).toLowerCase() + 
-                      state.weekly_weat.summary.slice(1) + '</p>';
+                      state.weekly_weat.summary.slice(1) + '</p><hr>';
 
     $('.search-weather-result').html(displayLocationText + displayText);
 
@@ -122,11 +122,12 @@ var displayShoppingResults = function(data){
     if(data.ok){
         displayHTML += ('<h3>Based on the weather for the week, might we suggest some fancy schmancy ' + state.search_term + '.</h3>');
         for(item in data.results){   
-//            console.log(data.results[item])
+            console.log(data.results[item])
             displayHTML += ('<div class = "result-item  three columns">' + 
                 '<a href = "' + data.results[item].url + 
-                '"><img src="' + data.results[item].MainImage.url_170x135 + '"></a>' +
-                '<p class="price"> $' + data.results[item].price + '</p></div>');
+                '"><img src="' + data.results[item].MainImage.url_170x135 + '">' +
+                '<p class="result-item-title">'+data.results[item].title + 
+                '</p><p class="result-item-price">$' + data.results[item].price + '</p></a></div>');
         }
         $('.search-sale-result').html(displayHTML);
     }

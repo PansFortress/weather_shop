@@ -1,15 +1,27 @@
 #search-form {
-    width: 350px;
+    top-margin: 50px;
+/*    width: 350px;
     border: 1px solid black;
-    background:gray;
+    background:gray;*/
 }
 
 #search-form>input[type=text]{
-    width: 270px;
+    height: 50px;
+    width: 90%;
+    font-size: 2em;
 }
 
 #search-form>button{
-    color: red;
+    white-space: nowrap;
+    padding: 15px;
+}
+/*
+::-webkit-input-placeholder{
+    font-size: 2em;
+}*/
+
+a{
+    text-decoration: none;
 }
 
 .container{
@@ -34,14 +46,31 @@
     margin-right: auto;
 }
 
+.result-item-title{
+    display:block;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
+
+.result-item-price{
+    text-align: right;
+    color: green;
+}
+
 .result-item p{
     align-content: right;
 }
 
+.result-item img:hover{
+    opacity: 0.5;
+}
+
+/*Inspiration from skeleton css framework*/
 @media (min-width: 600px){
     .one.column,.one.columns{ width: 4.66666666667%; }
     .two.columns{ width: 13.3333333333%; }
-    .three.columns{ width: 22%;}
+    .three.columns{ width: 22%; margin: 1%;}
     .four.columns{ width: 30.6666666667%; }
     .five.columns{ width: 39.3333333333%; }
     .six.columns{ width: 48%;}
@@ -54,5 +83,5 @@
 }
 
 @media(max-width:600px){
-    .one.column, .one.columns, .two.columns, .three.columns, .four.columns, .five.columns{width: 100%;}
+    .one.column, .one.columns, .two.columns, .three.columns, .four.columns, .five.columns{width: 95%; margin: 1%;}
 }
