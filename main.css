@@ -18,6 +18,7 @@ a{
 
 html{
     padding-top: 100px;
+    background-color: #F5F5F1;
 }
 
 .container{
@@ -33,6 +34,12 @@ html{
   width: 100%;
   float: left;
   box-sizing: border-box; 
+}
+
+.result-item{
+    border: transparent;
+    border-radius: 5px;
+    background-color: white;
 }
 
 .result-item img{
