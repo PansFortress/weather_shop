@@ -18,12 +18,15 @@ var ETSY = {
 var state = {
     location: {},
     current_weat: {},
-    weekly_weat: {}
+    weekly_weat: {},
+    current_mood: "",
+    weekly_mood: "",
+    search_term: ""
 }
 
 var shopping_search = {
-    snowy: ["winter boots", "hats", "scarves", "gloves"],
-    rainy: ["rain boots", "umbrellas", "ponchos"],
+    snowy: ["winter boots", "hats", "scarves", "winter gloves"],
+    rainy: ["rain boots", "sturdy umbrellas", "rain ponchos"],
     sunny: ["summer dress", "sunglasses", "sunscreen"],
     okay: ["jeans", "shirts", "sneakers"]
 }
@@ -85,36 +88,47 @@ var displayError = function(error){
     $('.search-weather-result').html('<p class = "error">' + error + '</p>');
 }; 
 
+var getShoppingTerm = function(key){
+    var index = Math.floor(Math.random() * shopping_search[key].length);
+    return shopping_search[key][index];
+}
+
+//TODO: Refactor getEtsy API call out of display function
 var displayResults = function(data){
     state.current_weat = data.currently;
     state.weekly_weat = data.daily;
+    state.current_mood = getMood(state.current_weat.summary);
+    state.weekly_mood = getMood(state.weekly_weat.summary);
+    state.search_term = getShoppingTerm(state.weekly_mood);
 
+    getEtsyData(state.search_term);
     displayWeatherResults();
-    displayShoppingResults(getMood(state.current_weat.summary), getMood(state.weekly_weat.summary));
 };
 
 var displayWeatherResults = function(){
-    var displayLocationText = '<h3 class="location">' + state.location.formatted_address + '</h3>';
+    var displayLocationText = '<h2 class="location">' + state.location.formatted_address + '</h2>';
     var displayText = '<p>It looks like it will be ' + state.current_weat.summary.toLowerCase() + 
                       ' today. The rest of the week seems to be ' + 
                       getMood(state.weekly_weat.summary) + ', there\'s ' + 
                       state.weekly_weat.summary.charAt(0).toLowerCase() + 
                       state.weekly_weat.summary.slice(1) + '</p>';
 
-    $('.search-sale-result').html(displayLocationText + displayText);
+    $('.search-weather-result').html(displayLocationText + displayText);
 
 };
 
 var displayShoppingResults = function(data){
-    //TODO: replace placeholder text with search results based on what the mood is
     var displayHTML = "";
     if(data.ok){
+        displayHTML += ('<h3>Based on the weather for the week, might we suggest some fancy schmancy ' + state.search_term + '.</h3>');
         for(item in data.results){   
-            console.log(data.results[item])
-            console.log(data.results[item].MainImage.url_570xN);
-            displayHTML += ('<img src="' + data.results[item].MainImage.url_170x135 + '">');
+//            console.log(data.results[item])
+            displayHTML += ('<div class = "result-item  three columns">' + 
+                '<a href = "' + data.results[item].url + 
+                '"><img src="' + data.results[item].MainImage.url_170x135 + '"></a>' +
+                '<p class="price"> $' + data.results[item].price + '</p></div>');
         }
-        $('.search-weather-result').html(displayHTML);
+        $('.search-sale-result').html(displayHTML);
     }
     else(console.log("ERROR", data));
 };
@@ -137,5 +151,3 @@ $('#search-form').submit(function(e){
     var input = $(this).find('input[name="search-input"]').val();
     getGoogleMapData(input);
 })
-
-getEtsyData("rain boots");
