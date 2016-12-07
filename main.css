@@ -1,15 +1,19 @@
 #search-form{
-    height: 55px;
+    height: 100%;
 }
 #search-form>input[type=text]{
-    height: 50px;
+    height: 100%;
     width: 90%;
     font-size: 2em;
+    padding: .25em; 
 }
 
 #search-form>button{
-    white-space: nowrap;
-    padding: 15px;
+    width: 7.1%;
+    height: 100%;
+    font-size: 1.5em;
+    position: relative;
+    margin: 0px 0px 0px 0px;
 }
 
 a{
