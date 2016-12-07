@@ -1,4 +1,6 @@
-
+#search-form{
+    height: 55px;
+}
 #search-form>input[type=text]{
     height: 50px;
     width: 90%;
@@ -50,6 +52,7 @@ html{
 .result-item-price{
     text-align: right;
     color: green;
+    font-size: .75em;
 }
 
 .result-item p{

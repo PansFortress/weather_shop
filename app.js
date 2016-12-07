@@ -25,7 +25,7 @@ var state = {
 }
 
 var shopping_search = {
-    snowy: ["winter boots", "hats", "scarves", "winter gloves"],
+    snowy: ["winter boots", "hats", "winter scarves", "winter gloves"],
     rainy: ["rain boots", "sturdy umbrellas", "rain ponchos"],
     sunny: ["summer dress", "sunglasses", "sunscreen"],
     okay: ["jeans", "shirts", "sneakers"]
@@ -122,7 +122,7 @@ var displayShoppingResults = function(data){
     if(data.ok){
         displayHTML += ('<h3>Based on the weather for the week, might we suggest some fancy schmancy ' + state.search_term + '.</h3>');
         for(item in data.results){   
-            console.log(data.results[item])
+//            console.log(data.results[item])
             displayHTML += ('<div class = "result-item  three columns">' + 
                 '<a href = "' + data.results[item].url + 
                 '"><img src="' + data.results[item].MainImage.url_170x135 + '">' +
