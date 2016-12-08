@@ -8,12 +8,14 @@
     padding: .25em; 
 }
 
-#search-form>button{
+#search-form>button {
     width: 7.1%;
     height: 100%;
     font-size: 1.5em;
     position: relative;
-    margin: 0px 0px 0px 0px;
+    top: 12px;
+    display: block;
+    float: right;
 }
 
 a{
