@@ -146,10 +146,16 @@ var getMood = function(text){
     return "okay";
 };
 
+var wipeResultsHTML = function(){
+    $('.search-weather-result').html("");
+    $('search-sale-result').html("");
+}
+
 //Listeners
 $('#search-form').submit(function(e){
     e.preventDefault();
     var input = $(this).find('input[name="search-input"]').val();
+    wipeResultsHTML();
     getGoogleMapData(input);
     //TODO Cleanup display of results so when we call it again, the previous results dont linger
 })
